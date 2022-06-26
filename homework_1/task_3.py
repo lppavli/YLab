@@ -1,13 +1,13 @@
-from math import factorial
+import math
 
 
 def zeros(n):
-    res = factorial(n)
-    count = 0
-    while res % 10 == 0:
-        count += 1
-        res //= 10
-    return count
+    if n == 0:
+        return 0
+    summ = 0
+    for i in range(1, int(math.log(n, 5)) + 1):
+        summ += n // (5 ** i)
+    return summ
 
 
 assert zeros(0) == 0

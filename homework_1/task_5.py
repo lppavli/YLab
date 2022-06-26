@@ -1,42 +1,31 @@
-def primfacs(n) -> set:
-    i = 2
-    primfac = []
-    while i * i <= n:
-        while n % i == 0:
-            primfac.append(i)
-            n = n / i
-        i = i + 1
-    if n > 1:
-        primfac.append(n)
-    return set(primfac)
+import itertools
 
 
-def count_find_num(primesL, limit):
-    k = 0
+def p(sp):
+    r = 1
+    for i in sp:
+        r *= int(i)
+    return r
+
+
+def count_1(pr_i, limit):
+    dl = 1
+    sp = 0
+    while dl < limit:
+        dl *= pr_i
+        sp += 1
+    return sp
+
+
+def count_find_num(pr, limit):
     res = []
-    for x in range(1, limit + 1):
-        if primfacs(x) == set(primesL):
-            k += 1
-            res.append([k, x])
-    return max(res) if res else []
+    d = {str(pr_i): count_1(pr_i, limit) for pr_i in pr}
+    n = p(pr)
+    z = (itertools.product(' '.join([str(i) for i in range(1, d[str(pr[0])])]).split(), repeat=len(pr)))
+    z_res = filter(lambda x: (x.count(i) <= d[i] for i in d.keys()), z)
+    for i in z_res:
+        numb = p((a ** int(b) for a, b in zip(pr, i)))
+        if numb <= limit:
+            res.append(numb)
 
-
-primesL = [2, 3]
-limit = 200
-assert count_find_num(primesL, limit) == [13, 192]
-
-primesL = [2, 5]
-limit = 200
-assert count_find_num(primesL, limit) == [8, 200]
-
-primesL = [2, 3, 5]
-limit = 500
-assert count_find_num(primesL, limit) == [12, 480]
-
-primesL = [2, 3, 5]
-limit = 1000
-assert count_find_num(primesL, limit) == [19, 960]
-
-primesL = [2, 3, 47]
-limit = 200
-assert count_find_num(primesL, limit) == []
+    return [len(set(res)), max(res)] if res else []
