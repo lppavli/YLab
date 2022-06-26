@@ -1,11 +1,8 @@
-import itertools
+import itertools, functools
 
 
-def p(sp):
-    r = 1
-    for i in sp:
-        r *= int(i)
-    return r
+def multiple(sp):
+    return functools.reduce(lambda result, element: result * element, sp)
 
 
 def count_1(pr_i, limit):
@@ -19,13 +16,14 @@ def count_1(pr_i, limit):
 
 def count_find_num(pr, limit):
     res = []
-    d = {str(pr_i): count_1(pr_i, limit) for pr_i in pr}
-    n = p(pr)
-    z = (itertools.product(' '.join([str(i) for i in range(1, d[str(pr[0])])]).split(), repeat=len(pr)))
-    z_res = filter(lambda x: (x.count(i) <= d[i] for i in d.keys()), z)
-    for i in z_res:
-        numb = p((a ** int(b) for a, b in zip(pr, i)))
+    d = {pr_i: count_1(pr_i, limit) for pr_i in pr}
+    d_iter = []
+    for k, v in d.items():
+        a = list(itertools.product([k], range(1, v + 1)))
+        d_iter.append(a)
+    combinations = itertools.product(*d_iter)
+    for item in combinations:
+        numb = multiple((n ** degree for n, degree in item))
         if numb <= limit:
             res.append(numb)
-
     return [len(set(res)), max(res)] if res else []

@@ -26,3 +26,4 @@ m = Movie('sw', [(datetime(2020, 1, 1), datetime(2020, 1, 7)), (datetime(2020, 1
 
 for d in m.schedule():
     print(d)
+    
