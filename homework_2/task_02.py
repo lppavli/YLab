@@ -103,13 +103,10 @@ class Board:
         for variant in [self.board, zip(*self.board), self.all_diag()]:
             d = [''.join([str(i) for i in j]) for j in variant]
             if any('11111' in i for i in d):
-                print('нолик выиграл')
                 return 1
             if any('22222' in i for i in d):
-                print('крестик выиграл')
                 return 2
             if all('0' not in i for i in d):
-                print('ничья')
                 return 3
         return 0
 
@@ -129,7 +126,6 @@ class Board:
 def result_game(screen, board):
     msg = ''
     res = board.check_win()
-    print(res)
     if res == 1:
         msg = 'Победа Нолика'
     elif res == 2:
