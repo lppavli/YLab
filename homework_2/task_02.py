@@ -84,8 +84,17 @@ class Board:
     def step_ii(self):
         if not self.crosses:
             cell_x, cell_y = choice(self.empty_cells)
-            del self.empty_cells[self.empty_cells.index((cell_x, cell_y))]
             self.board[cell_y][cell_x] = 2
+            k = 0
+            # проверка хода: k - количество попыток
+            while self.check_win() == 2:
+                self.board[cell_y][cell_x] = 0
+                cell_x, cell_y = choice(self.empty_cells)
+                self.board[cell_y][cell_x] = 2
+                if k == 5:
+                    break
+                k += 1
+            del self.empty_cells[self.empty_cells.index((cell_x, cell_y))]
             self.crosses = not self.crosses
 
     # проверка победителя
@@ -120,6 +129,7 @@ class Board:
 def result_game(screen, board):
     msg = ''
     res = board.check_win()
+    print(res)
     if res == 1:
         msg = 'Победа Нолика'
     elif res == 2:
@@ -153,6 +163,7 @@ def main():
                 # ход компьютера
                 board.step_ii()
                 result_game(screen, board)
+
     pygame.quit()
 
 
