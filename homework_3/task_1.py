@@ -1,7 +1,7 @@
 import json
+import logging
 
 from redis import Redis
-import logging
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.INFO)
@@ -59,7 +59,6 @@ def multiplier_with_redis(number: int):
 
 
 if __name__ == "__main__":
-
     # Испытание простого кэширования
     print(multiplier(2))
     print(multiplier(2))
