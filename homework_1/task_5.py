@@ -23,7 +23,7 @@ def count_find_num(pr, limit):
         d_iter.append(a)
     combinations = itertools.product(*d_iter)
     for item in combinations:
-        numb = multiple((n ** degree for n, degree in item))
+        numb = multiple((n**degree for n, degree in item))
         if numb <= limit:
             res.append(numb)
     return [len(set(res)), max(res)] if res else []

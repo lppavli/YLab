@@ -6,7 +6,7 @@ def zeros(n):
         return 0
     summ = 0
     for i in range(1, int(math.log(n, 5)) + 1):
-        summ += n // (5 ** i)
+        summ += n // (5**i)
     return summ
 
 

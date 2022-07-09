@@ -3,6 +3,7 @@ import itertools
 
 # https://github.com/mnv/python-basics
 
+
 def get_dist(point_1, point_2):
     res = ((point_2[0] - point_1[0]) ** 2 + (point_2[1] - point_1[1]) ** 2) ** 0.5
     return res
@@ -26,7 +27,7 @@ for item in a:
     if dist < minim:
         minim_res = res
         minim = dist
-print(current, end=' ')
+print(current, end=" ")
 for k, v in minim_res.items():
-    print(f'-> {k}[{v}]', end=' ')
-print('=', minim_res[current])
+    print(f"-> {k}[{v}]", end=" ")
+print("=", minim_res[current])

@@ -1,5 +1,5 @@
 def int32_to_ip(x):
-    x = bin(x)[2:].rjust(32, '0')
+    x = bin(x)[2:].rjust(32, "0")
     res = f"{int(x[:8], 2)}.{int(x[8:16], 2)}.{int(x[16:24], 2)}.{int(x[24:], 2)}"
     return res
 

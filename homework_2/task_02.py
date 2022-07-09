@@ -21,7 +21,7 @@ class Board:
         # чей ход
         self.crosses = True
 
-    def render(self, screen, msg=''):
+    def render(self, screen, msg=""):
         # отрисовка поля
         if msg:
             font = pygame.font.Font(None, 25)
@@ -33,23 +33,56 @@ class Board:
         for y in range(self.height):
             for x in range(self.width):
                 if self.board[y][x] == 1:
-                    pygame.draw.line(screen, pygame.Color("blue"),
-                                     (self.left + x * self.cell_size + 3,
-                                      self.top + y * self.cell_size + 3),
-                                     (self.left + x * self.cell_size - 3 + self.cell_size,
-                                      self.top + y * self.cell_size - 3 + self.cell_size), 2)
-                    pygame.draw.line(screen, pygame.Color("blue"),
-                                     (self.left + x * self.cell_size + 3,
-                                      self.top + y * self.cell_size + self.cell_size - 3),
-                                     (self.left + x * self.cell_size - 3 + self.cell_size,
-                                      self.top + y * self.cell_size + 3), 2)
+                    pygame.draw.line(
+                        screen,
+                        pygame.Color("blue"),
+                        (
+                            self.left + x * self.cell_size + 3,
+                            self.top + y * self.cell_size + 3,
+                        ),
+                        (
+                            self.left + x * self.cell_size - 3 + self.cell_size,
+                            self.top + y * self.cell_size - 3 + self.cell_size,
+                        ),
+                        2,
+                    )
+                    pygame.draw.line(
+                        screen,
+                        pygame.Color("blue"),
+                        (
+                            self.left + x * self.cell_size + 3,
+                            self.top + y * self.cell_size + self.cell_size - 3,
+                        ),
+                        (
+                            self.left + x * self.cell_size - 3 + self.cell_size,
+                            self.top + y * self.cell_size + 3,
+                        ),
+                        2,
+                    )
                 if self.board[y][x] == 2:
-                    pygame.draw.ellipse(screen, pygame.Color("red"), (
-                        (self.left + x * self.cell_size + 3, self.top + y * self.cell_size + 3),
-                        (self.cell_size - 6, self.cell_size - 6)), 2)
-                pygame.draw.rect(screen, pygame.Color("white"), (
-                    x * self.cell_size + self.left, y * self.cell_size + self.top, self.cell_size,
-                    self.cell_size), 1)
+                    pygame.draw.ellipse(
+                        screen,
+                        pygame.Color("red"),
+                        (
+                            (
+                                self.left + x * self.cell_size + 3,
+                                self.top + y * self.cell_size + 3,
+                            ),
+                            (self.cell_size - 6, self.cell_size - 6),
+                        ),
+                        2,
+                    )
+                pygame.draw.rect(
+                    screen,
+                    pygame.Color("white"),
+                    (
+                        x * self.cell_size + self.left,
+                        y * self.cell_size + self.top,
+                        self.cell_size,
+                        self.cell_size,
+                    ),
+                    1,
+                )
 
     # настройка внешнего вида
     def set_view(self, left, top, cell_size):
@@ -101,12 +134,12 @@ class Board:
     def check_win(self):
         # пробегаем по строкам, столбцам и диагоналям
         for variant in [self.board, zip(*self.board), self.all_diag()]:
-            d = [''.join([str(i) for i in j]) for j in variant]
-            if any('11111' in i for i in d):
+            d = ["".join([str(i) for i in j]) for j in variant]
+            if any("11111" in i for i in d):
                 return 1
-            if any('22222' in i for i in d):
+            if any("22222" in i for i in d):
                 return 2
-            if all('0' not in i for i in d):
+            if all("0" not in i for i in d):
                 return 3
         return 0
 
@@ -124,14 +157,14 @@ class Board:
 
 # перерисовка доски после хода игрока или компьютера
 def result_game(screen, board):
-    msg = ''
+    msg = ""
     res = board.check_win()
     if res == 1:
-        msg = 'Победа Нолика'
+        msg = "Победа Нолика"
     elif res == 2:
-        msg = 'Победа Крестика'
+        msg = "Победа Крестика"
     elif res == 3:
-        msg = 'Ничья'
+        msg = "Ничья"
     screen.fill((0, 0, 0))
     board.render(screen, msg)
     pygame.display.flip()
@@ -141,14 +174,14 @@ def main():
     pygame.init()
     size = 320, 370
     screen = pygame.display.set_mode(size)
-    pygame.display.set_caption('Обратные крестики-нолики')
+    pygame.display.set_caption("Обратные крестики-нолики")
     board = Board(10, 10)
     running = True
     screen.fill((0, 0, 0))
-    board.render(screen, '')
+    board.render(screen, "")
     pygame.display.flip()
     while running:
-        msg = ''
+        msg = ""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -163,5 +196,5 @@ def main():
     pygame.quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

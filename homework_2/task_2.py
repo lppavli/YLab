@@ -22,8 +22,13 @@ class Movie:
             start_date2 += delta
 
 
-m = Movie('sw', [(datetime(2020, 1, 1), datetime(2020, 1, 7)), (datetime(2020, 1, 15), datetime(2020, 2, 7))])
+m = Movie(
+    "sw",
+    [
+        (datetime(2020, 1, 1), datetime(2020, 1, 7)),
+        (datetime(2020, 1, 15), datetime(2020, 2, 7)),
+    ],
+)
 
 for d in m.schedule():
     print(d)
-    

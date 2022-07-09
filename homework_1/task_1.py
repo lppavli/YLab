@@ -1,10 +1,10 @@
 def domain_name(domain):
-    if '//' in domain:
-        res = domain.split('//')[1]
+    if "//" in domain:
+        res = domain.split("//")[1]
     else:
         res = domain
-    res = res.split('.')
-    if res[0] == 'www':
+    res = res.split(".")
+    if res[0] == "www":
         return res[1]
     else:
         return res[0]

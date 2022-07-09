@@ -18,6 +18,7 @@ class CyclicIterator:
             self.__next__()
             return self.current
 
+
 cyclic_iterator = CyclicIterator(range(3))
 for i in cyclic_iterator:
     print(i)
