@@ -4,7 +4,7 @@
 ```
     git clone https://github.com/lppavli/YLab
     cd fastapi-blog-auth
-    docker-compose up -d build
+    docker-compose up -d --build
     
 ```
 Для миграций
