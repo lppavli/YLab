@@ -11,7 +11,7 @@ def repeat_decorator(
             for i in range(1, call_count + 1):
                 sleep(t)
                 if t < border_sleep_time:
-                    t = start_sleep_time * factor**i
+                    t = min(border_sleep_time, start_sleep_time * factor**i)
                 else:
                     t = border_sleep_time
                 print(
@@ -24,7 +24,7 @@ def repeat_decorator(
     return decorator
 
 
-@repeat_decorator(call_count=3, start_sleep_time=1, factor=2, border_sleep_time=10)
+@repeat_decorator(call_count=3, start_sleep_time=1, factor=2, border_sleep_time=20)
 def multiplier(n):
     return n * 2
 
