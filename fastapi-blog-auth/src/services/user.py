@@ -139,6 +139,12 @@ class UserService(ServiceMixin):
         active_refresh_tokens.delete(user_uuid)
         return {"msg": "Successfully logout"}
 
+    def get_user_by_access_token(self, _jwt):
+        _jwt.jwt_required()
+        if current_username := _jwt.get_jwt_subject():
+            return current_username
+        return None
+
 
 def get_token_from_payload(payload: dict):
     return jwt.encode(payload, "secret", "HS256")

@@ -2,10 +2,12 @@ from http import HTTPStatus
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi_jwt_auth import AuthJWT
 from starlette import status
 
 from src.api.v1.schemas import PostCreate, PostListResponse, PostModel
 from src.services import PostService, get_post_service
+from src.services.user import UserService, get_user_service
 
 router = APIRouter()
 
@@ -17,7 +19,7 @@ router = APIRouter()
     tags=["posts"],
 )
 def post_list(
-    post_service: PostService = Depends(get_post_service),
+        post_service: PostService = Depends(get_post_service),
 ) -> PostListResponse:
     posts: dict = post_service.get_post_list()
     if not posts:
@@ -33,8 +35,8 @@ def post_list(
     tags=["posts"],
 )
 def post_detail(
-    post_id: int,
-    post_service: PostService = Depends(get_post_service),
+        post_id: int,
+        post_service: PostService = Depends(get_post_service),
 ) -> PostModel:
     post: Optional[dict] = post_service.get_post_detail(item_id=post_id)
     if not post:
@@ -52,7 +54,13 @@ def post_detail(
 )
 def post_create(
     post: PostCreate,
+    Authorize: AuthJWT = Depends(),
     post_service: PostService = Depends(get_post_service),
+    user_service: UserService = Depends(get_user_service)
 ) -> PostModel:
-    post: dict = post_service.create_post(post=post)
-    return PostModel(**post)
+    user = user_service.get_user_by_access_token(Authorize)
+    if user:
+        post: dict = post_service.create_post(post=post)
+        return PostModel(**post)
+    else:
+        raise HTTPException(status_code=HTTPStatus.UNAUTHORIZED, detail="Unauthorized user")
